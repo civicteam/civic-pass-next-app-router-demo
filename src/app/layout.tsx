@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import {
+    EthersExtension,
+    DynamicContextProvider,
+    EthereumWalletConnectors,
+} from "../lib/dynamic";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,8 +20,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+      <html lang="en">
+      <DynamicContextProvider
+          settings={{
+              environmentId: process.env.DYNAMIC_ENVIRONMENT_ID ?? "",
+              walletConnectors: [EthereumWalletConnectors],
+              walletConnectorExtensions: [EthersExtension],
+          }}
+      >
+          <body className={inter.className}>{children}</body>
+      </DynamicContextProvider>
+      </html>
   );
 }
