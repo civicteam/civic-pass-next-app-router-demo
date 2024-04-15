@@ -1,15 +1,20 @@
 'use client';
-import { DynamicWidget, useDynamicContext } from "../lib/dynamic";
-import {CivicPassProvider} from "@/app/context/CivicPassProvider";
-import {IdentityButton} from "@civic/ethereum-gateway-react";
+import {CivicPassProvider} from "@/app/components/CivicPassProvider";
+import {IdentityButton} from "@civic/solana-gateway-react";
+import WalletProvider from "@/app/components/WalletProvider";
+import WalletMultiButton from "@/app/components/WalletMultiButton";
 
 export default async function Home() {
     return (
-        <CivicPassProvider>
-            <main className="flex min-h-screen flex-col items-center justify-between p-24">
-                <DynamicWidget/>
-                <IdentityButton/>
-            </main>
-        </CivicPassProvider>
+        <WalletProvider>
+            <CivicPassProvider>
+                <div className="flex min-h-screen items-center justify-center">
+                    <main className="flex flex-col items-center justify-between p-6 max-h-[200px]">
+                        <WalletMultiButton/>
+                        <IdentityButton/>
+                    </main>
+                </div>
+            </CivicPassProvider>
+        </WalletProvider>
     )
 };
