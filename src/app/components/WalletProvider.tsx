@@ -12,7 +12,7 @@ require("@solana/wallet-adapter-react-ui/styles.css");
 
 const WalletProvider: FC<PropsWithChildren> = ({ children }) => {
     const endpoint =
-        process.env.NEXT_PUBLIC_SOLANA_RPC_ENDPOINT ||
+        process.env.NEXT_PUBLIC_RPC ||
         "https://api.devnet.solana.com";
 
     const wallets = useMemo(

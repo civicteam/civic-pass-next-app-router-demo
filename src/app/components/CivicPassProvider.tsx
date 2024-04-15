@@ -22,7 +22,7 @@ export const CivicPassProvider: FC<PropsWithChildren> = ({ children }) => {
             wallet={wallet}
             connection={connection}
             gatekeeperNetwork={DUMMY_PASS}
-            cluster="devnet"
+            // cluster="devnet"
             payer={PAYER}
             stage={"dev"}
             handleTransaction={async (transaction) => {

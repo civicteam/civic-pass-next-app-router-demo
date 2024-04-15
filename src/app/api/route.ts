@@ -1,6 +1,6 @@
 import {Connection, Keypair, Transaction} from "@solana/web3.js";
 
-const connection = new Connection(process.env.PRIVATE_RPC ?? "https://api.devnet.solana.com");
+const connection = new Connection(process.env.PRIVATE_RPC ?? "https://api.devnet.solana.com", "processed");
 const keypair = Keypair.fromSecretKey(Buffer.from(process.env.PAYER_SECRET_KEY ?? '', 'base64'));
 
 /**
@@ -20,9 +20,14 @@ export const POST = async (request: Request) => {
 
     // sign and send the transaction
     const signature = await connection.sendRawTransaction(parsedTransaction.serialize(), {
-        // preflightCommitment: "finalized"
+        preflightCommitment: "processed"
         // skipPreflight: true
     });
+
+    const blockhash = await connection.getLatestBlockhash();
+    console.log("Waiting for confirm...")
+    await connection.confirmTransaction({ signature, ...blockhash });
+    console.log("Confirmed")
 
     // serialise the transaction and return it
     return new Response(JSON.stringify({ signature }));
