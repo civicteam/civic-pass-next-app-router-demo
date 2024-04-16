@@ -3,7 +3,7 @@
 import React, {FC, PropsWithChildren} from "react";
 import {GatewayProvider} from "@civic/solana-gateway-react";
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
-import {PublicKey} from "@solana/web3.js";
+import {PublicKey, Transaction} from "@solana/web3.js";
 
 const UNIQUENESS_PASS = new PublicKey("uniqobk8oGh4XBLMqM68K8M2zNu3CdYX7q5go7whQiv");
 const CAPTCHA_PASS = new PublicKey("ignREusXmGrscGNUesoU9mxfds9AiYTezUKex2PsZV6")
@@ -17,29 +17,30 @@ export const CivicPassProvider: FC<PropsWithChildren> = ({ children }) => {
     const wallet = useWallet();
     const { connection } = useConnection();
 
+    const handleTransaction = async (transaction: Transaction) => {
+        const serializedTransaction = Buffer.from(transaction.serialize({
+            requireAllSignatures: false,
+        })).toString('base64');
+        console.log("blockhash", transaction.recentBlockhash)
+        const response = await fetch('/api', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ transaction: serializedTransaction }),
+        });
+        const { signature } = await response.json();
+        return signature;
+    };
+
     return (
         <GatewayProvider
             wallet={wallet}
             connection={connection}
             gatekeeperNetwork={DUMMY_PASS}
-            // cluster="devnet"
+            cluster="devnet"
             payer={PAYER}
-            stage={"dev"}
-            handleTransaction={async (transaction) => {
-                const serializedTransaction = Buffer.from(transaction.serialize({
-                    requireAllSignatures: false,
-                })).toString('base64');
-                console.log("blockhash", transaction.recentBlockhash)
-                const response = await fetch('/api', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ transaction: serializedTransaction }),
-                });
-                const { signature } = await response.json();
-                return signature;
-            }}>
+            handleTransaction={handleTransaction}>
             {children}
         </GatewayProvider>
     )

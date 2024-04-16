@@ -19,6 +19,8 @@ export const POST = async (request: Request) => {
     console.log("Blockhash", parsedTransaction.recentBlockhash);
 
     // sign and send the transaction
+    // WARNING - Do NOT sign arbitrary transactions sent from an unsecured client. Your funds may be at risk.
+    // This code is for demonstration purposes only
     const signature = await connection.sendRawTransaction(parsedTransaction.serialize(), {
         preflightCommitment: "processed"
         // skipPreflight: true
