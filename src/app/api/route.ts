@@ -11,19 +11,14 @@ export const POST = async (request: Request) => {
     // parse the request into a transaction
     const {transaction} = await request.json() as { transaction: string };
 
-    console.log(transaction);
-
     const parsedTransaction = Transaction.from(Buffer.from(transaction, 'base64'));
     parsedTransaction.partialSign(keypair);
-
-    console.log("Blockhash", parsedTransaction.recentBlockhash);
 
     // sign and send the transaction
     // WARNING - Do NOT sign arbitrary transactions sent from an unsecured client. Your funds may be at risk.
     // This code is for demonstration purposes only
     const signature = await connection.sendRawTransaction(parsedTransaction.serialize(), {
         preflightCommitment: "processed"
-        // skipPreflight: true
     });
 
     const blockhash = await connection.getLatestBlockhash();

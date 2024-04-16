@@ -5,10 +5,9 @@ import {GatewayProvider} from "@civic/solana-gateway-react";
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
 import {PublicKey, Transaction} from "@solana/web3.js";
 
+// Pick your pass type...
 const UNIQUENESS_PASS = new PublicKey("uniqobk8oGh4XBLMqM68K8M2zNu3CdYX7q5go7whQiv");
 const CAPTCHA_PASS = new PublicKey("ignREusXmGrscGNUesoU9mxfds9AiYTezUKex2PsZV6")
-const TEST_CAPTCHA_PASS = new PublicKey("tigoYhp9SpCDoCQmXGj2im5xa3mnjR1zuXrpCJ5ZRmi")
-const TEST_LIVENESS_PASS = new PublicKey("tvaaHL9BSgZGLRAqUrx1Fzs2Uneb6BWGdnYuqrFoXm3")
 const DUMMY_PASS = new PublicKey("tgnuXXNMDLK8dy7Xm1TdeGyc95MDym4bvAQCwcW21Bf")
 
 const PAYER = new PublicKey(process.env.NEXT_PUBLIC_PAYER ?? "");
