@@ -40,6 +40,7 @@ export const CivicPassProvider: FC<PropsWithChildren> = ({ children }) => {
             gatekeeperNetwork={DUMMY_PASS}
             cluster="devnet"
             payer={PAYER}
+            stage={"dev"}
             handleTransaction={handleTransaction}>
             {children}
         </GatewayProvider>
