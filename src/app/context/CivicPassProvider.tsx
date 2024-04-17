@@ -7,10 +7,9 @@ import {GatewayProvider} from "@civic/ethereum-gateway-react";
 
 const PAYER = process.env.NEXT_PUBLIC_PAYER ?? "";
 
-const STAGE = process.env.NEXT_PUBLIC_STAGE ?? "dev";
 // Pick your pass...
-const UNIQUENESS_PASS = STAGE === "dev" ? "tunQheuPpHhjjsbrUDp4rikqYez9UXv4SXLRHf9Kzsv" : "uniqobk8oGh4XBLMqM68K8M2zNu3CdYX7q5go7whQiv";
-const CAPTCHA_PASS = STAGE === "dev" ?  "tigoYhp9SpCDoCQmXGj2im5xa3mnjR1zuXrpCJ5ZRmi" : "ignREusXmGrscGNUesoU9mxfds9AiYTezUKex2PsZV6";
+const UNIQUENESS_PASS = "uniqobk8oGh4XBLMqM68K8M2zNu3CdYX7q5go7whQiv";
+const CAPTCHA_PASS = "ignREusXmGrscGNUesoU9mxfds9AiYTezUKex2PsZV6";
 const DUMMY_PASS = "tgnuXXNMDLK8dy7Xm1TdeGyc95MDym4bvAQCwcW21Bf";
 
 // handle BigInt JSON serialization
@@ -47,7 +46,6 @@ export const CivicPassProvider: FC<PropsWithChildren> = ({ children }) => {
             }}
             gatekeeperNetwork={CAPTCHA_PASS}
             payer={PAYER}
-            stage={STAGE}
             handleTransaction={handleTransaction}
         >
             {children}
