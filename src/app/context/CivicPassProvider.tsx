@@ -6,11 +6,13 @@ import {JsonRpcSigner, TransactionRequest} from "ethers";
 import {GatewayProvider} from "@civic/ethereum-gateway-react";
 
 const PAYER = process.env.NEXT_PUBLIC_PAYER ?? "";
+
+// Pick your pass...
 const UNIQUENESS_PASS = "uniqobk8oGh4XBLMqM68K8M2zNu3CdYX7q5go7whQiv";
 const CAPTCHA_PASS = "ignREusXmGrscGNUesoU9mxfds9AiYTezUKex2PsZV6";
 const DUMMY_PASS = "tgnuXXNMDLK8dy7Xm1TdeGyc95MDym4bvAQCwcW21Bf";
 
-// handle BigInt serialization
+// handle BigInt JSON serialization
 const serializer = (key: string, value: any) =>
     typeof value === 'bigint'
         ? value.toString()
