@@ -25,7 +25,7 @@ export const CivicPassProvider: FC<PropsWithChildren> = ({ children }) => {
         () => {
             primaryWallet?.connector.ethers?.getSigner().then(setSigner)
         },
-        [primaryWallet]
+        [primaryWallet?.address]
     );
 
     // call the backend to sign and send the transaction
