@@ -1,20 +1,15 @@
-'use client';
-import {CivicPassProvider} from "@/app/components/CivicPassProvider";
+"use client";
+
 import {IdentityButton} from "@civic/solana-gateway-react";
-import WalletProvider from "@/app/components/WalletProvider";
-import WalletMultiButton from "@/app/components/WalletMultiButton";
+import {WalletMultiButton} from "@solana/wallet-adapter-react-ui";
 
 export default async function Home() {
     return (
-        <WalletProvider>
-            <CivicPassProvider>
-                <div className="flex min-h-screen items-center justify-center">
-                    <main className="flex flex-col items-center justify-between p-6 max-h-[200px]">
-                        <WalletMultiButton/>
-                        <IdentityButton/>
-                    </main>
-                </div>
-            </CivicPassProvider>
-        </WalletProvider>
+        <div className="flex min-h-screen items-center justify-center">
+            <main className="flex flex-col items-center justify-between p-6 max-h-[200px]">
+                <WalletMultiButton/>
+                <IdentityButton/>
+            </main>
+        </div>
     )
 };

@@ -22,7 +22,7 @@ export const POST = async (request: Request) => {
     });
 
     const blockhash = await connection.getLatestBlockhash();
-    console.log("Waiting for confirm...")
+    console.log("Waiting for confirm...", signature)
     await connection.confirmTransaction({ signature, ...blockhash });
     console.log("Confirmed")
 
